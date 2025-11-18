@@ -7,6 +7,17 @@ public class RangedEnemy : Enemy
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private int projectileDamage = 15;
 
+
+    private Transform playerTarget;
+
+    void Start()
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+            playerTarget = p.transform;
+    }
+
+
     public override void Attack()
     {
         if (projectilePrefab == null || firePoint == null)
@@ -15,13 +26,17 @@ public class RangedEnemy : Enemy
             return;
         }
 
+        Vector3 dir = (playerTarget.position - firePoint.position).normalized;
+        
+
+
         GameObject proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody rb = proj.GetComponent<Rigidbody>();
+        dir = Quaternion.Euler(90, 0, 0) * dir;
 
-        // this is for making the projectile shoot
         if (rb != null)
         {
-            rb.linearVelocity = firePoint.up * projectileSpeed;
+            rb.linearVelocity = dir * projectileSpeed;
         }
 
         Debug.Log($"Ranged Enemy fires a projectile deal {projectileDamage} damage.");

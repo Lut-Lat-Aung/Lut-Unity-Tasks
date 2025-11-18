@@ -1,28 +1,35 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FlyingEnemy : Enemy
 {
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 20;
 
-    private Transform target;
+    private Transform playerPos;
+    private NavMeshAgent agent;
 
-    private void Start()
+    void Start()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            target = playerObj.transform;
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
+    void Update()
+    {
+        if (playerPos == null) return;
+
+        agent.SetDestination(playerPos.position);
+        float distance = Vector3.Distance(transform.position, playerPos.position);
+
+        if (distance <= attackRange)
+        {
+            Attack();
+        }
+    }
     public override void Attack()
     {
-        if (target == null)
-        {
-            Debug.Log($"{name} (Flying) has no target to attack.");
-            return;
-        }
-
-        transform.position += target.position * speed * Time.deltaTime;
 
         Debug.Log($"Flying Enemy attack player with {attackDamage} damage");
     }

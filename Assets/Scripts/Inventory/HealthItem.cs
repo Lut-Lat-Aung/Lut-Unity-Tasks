@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class HealthItem : Item
+[CreateAssetMenu(menuName = "Items/HealthItem")]
+
+public class HealthItem :  Item
 {
     public int healAmount = 20;
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Items/BuffItem")]
 public class BuffItem : Item
 {
     public float duration = 5f;

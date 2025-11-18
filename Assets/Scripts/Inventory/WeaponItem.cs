@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Items/WeaponItem")]
 public class WeaponItem : Item
 {
     public int damageIncrease = 10;
