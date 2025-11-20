@@ -16,6 +16,7 @@ public class InventorySlotUI : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("Slot Clicked");
         inventory.Use(item, GameObject.Find("Player"));
     }
 }
