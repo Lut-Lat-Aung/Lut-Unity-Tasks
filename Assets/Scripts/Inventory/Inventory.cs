@@ -24,4 +24,10 @@ public class Inventory : MonoBehaviour
             item.Use(user);
         }
     }
+
+    public List<Item> GetItems()
+    {
+        return items;
+    }
+
 }
